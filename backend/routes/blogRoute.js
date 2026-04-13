@@ -6,6 +6,6 @@ const router = Router()
 
 router.get('/', blogController.index)
 router.post('/', verifyToken, blogController.create)
-
+router.put('/:id', verifyToken, blogController.edit)
 
 module.exports = router
