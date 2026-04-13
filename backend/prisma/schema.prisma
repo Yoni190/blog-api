@@ -19,6 +19,7 @@ model User {
   password  String
   role      Role     @default(USER)
   createdAt DateTime @default(now())
+  blogs     Blog[]
 }
 
 model Blog {
@@ -28,11 +29,13 @@ model Blog {
   isPublished Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    Int
 }
 
 model Comment {
-  id Int @id @default(autoincrement())
-  text String
+  id        Int      @id @default(autoincrement())
+  text      String
   createdAt DateTime @default(now())
 }
 
