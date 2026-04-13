@@ -1,5 +1,5 @@
 const authRoute = require('./authRoute')
 
-export default {
+module.exports = {
     authRoute
 }

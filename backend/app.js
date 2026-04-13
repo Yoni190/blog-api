@@ -1,8 +1,10 @@
 const express = require('express')
 require('dotenv').config()
+const routes = require('./routes/index')
 
 
 const app = express()
+app.use(routes.authRoute)
 
 
 const PORT = process.env.PORT || 3000
