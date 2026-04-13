@@ -29,12 +29,12 @@ const create = async (req, res) => {
 const edit = async (req, res) => {
     const user = req.authData.user
 
-    const { title, text } = req.body
+    const { title, text, isPublished } = req.body
     const blogId = parseInt(req.params.id)
 
     await prisma.blog.update({
         where: { id: blogId, authorId: user.id },
-        data: { title, text }
+        data: { title, text, isPublished }
     })
 
     res.json({ message: 'Blog Edited Successfully!' })
