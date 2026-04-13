@@ -30,7 +30,26 @@ const create = async (req, res) => {
     res.json({ message: 'Message Created' })
 }
 
+const edit = async (req, res) => {
+    const user = req.authData.user
+
+    if(user.role !== 'AUTHOR') {
+        return res.sendStatus(403)
+    }
+
+    const { title, text } = req.body
+    const blogId = parseInt(req.params.id)
+
+    await prisma.blog.update({
+        where: { id: blogId, authorId: user.id },
+        data: { title, text }
+    })
+
+    res.json({ message: 'Blog Edited Successfully!' })
+}
+
 module.exports = {
     index,
-    create
+    create,
+    edit
 }
