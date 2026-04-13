@@ -21,6 +21,15 @@ model User {
   createdAt DateTime @default(now())
 }
 
+model Blog {
+  id Int @id @default(autoincrement())
+  title String
+  text String
+  isPublished Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum Role {
   USER
   AUTHOR
