@@ -13,21 +13,27 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  username String @unique
-  email String @unique
-  password String
-  role Role @default(USER)
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
 }
 
 model Blog {
+  id          Int      @id @default(autoincrement())
+  title       String
+  text        String
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Comment {
   id Int @id @default(autoincrement())
-  title String
   text String
-  isPublished Boolean @default(false)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 enum Role {
