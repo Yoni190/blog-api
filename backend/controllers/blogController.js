@@ -53,9 +53,25 @@ const destroy = async (req, res) => {
     res.json({ message: 'Blog Deleted Successfully!' })
 }
 
+const updatePublishStatus = async (req, res) => {
+    const user = req.authData.user
+
+    const blogId = parseInt(req.params.id)
+
+    const { isPublished } = req.body
+
+    await prisma.blog.update({
+        where: { id: blogId, authorId: user.id },
+        data: { isPublished }
+    })
+
+    res.json({ message: "Blog Publish Status Updated Successfully!" })
+}
+
 module.exports = {
     index,
     create,
     edit,
-    destroy
+    destroy,
+    updatePublishStatus
 }
