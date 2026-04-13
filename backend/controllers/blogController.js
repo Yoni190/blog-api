@@ -13,12 +13,13 @@ const index = async (req, res) => {
 const create = async (req, res) => {
     const user = req.authData.user
 
-    const { title, text } = req.body
+    const { title, text, isPublished } = req.body
 
     await prisma.blog.create({
         data: {
             title,
             text,
+            isPublished,
             authorId: user.id
         }
     })
