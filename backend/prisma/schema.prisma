@@ -23,20 +23,23 @@ model User {
 }
 
 model Blog {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   title       String
   text        String
-  isPublished Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  author      User     @relation(fields: [authorId], references: [id])
+  isPublished Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  author      User      @relation(fields: [authorId], references: [id])
   authorId    Int
+  comments    Comment[]
 }
 
 model Comment {
   id        Int      @id @default(autoincrement())
   text      String
   createdAt DateTime @default(now())
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    Int
 }
 
 enum Role {
