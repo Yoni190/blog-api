@@ -4,7 +4,7 @@ const verifyToken = require('../middleware/verifyToken')
 
 const router = Router()
 
-router.get('/', verifyToken, blogController.index)
+router.get('/', blogController.index)
 
 
 module.exports = router
