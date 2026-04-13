@@ -13,10 +13,6 @@ const index = async (req, res) => {
 const create = async (req, res) => {
     const user = req.authData.user
 
-    if(user.role !== 'AUTHOR') {
-        return res.sendStatus(403)
-    }
-
     const { title, text } = req.body
 
     await prisma.blog.create({
@@ -32,10 +28,6 @@ const create = async (req, res) => {
 
 const edit = async (req, res) => {
     const user = req.authData.user
-
-    if(user.role !== 'AUTHOR') {
-        return res.sendStatus(403)
-    }
 
     const { title, text } = req.body
     const blogId = parseInt(req.params.id)
