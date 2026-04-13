@@ -9,6 +9,7 @@ app.use(express.json())
 
 app.use(routes.authRoute)
 app.use('/blogs', routes.blogRoute)
+app.use('/comments', routes.commentRoute)
 
 
 const PORT = process.env.PORT || 3000
