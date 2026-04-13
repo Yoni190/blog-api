@@ -39,8 +39,20 @@ const edit = async (req, res) => {
     res.json({ message: 'Comment Updated Successfully!' })
 }
 
+const destroy = async (req, res) => {
+    const user = req.authData.user
+    const commentId = parseInt(req.params.id)
+    
+    await prisma.comment.delete({
+        where: { id: commentId, userId: user.id }
+    })
+
+    res.json({ message: 'Comment Deleted Successfully!' })
+}
+
 module.exports = {
     index,
     create,
-    edit
+    edit,
+    destroy
 }
