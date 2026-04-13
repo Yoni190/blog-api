@@ -40,8 +40,21 @@ const edit = async (req, res) => {
     res.json({ message: 'Blog Edited Successfully!' })
 }
 
+const destroy = async (req, res) => {
+    const user = req.authData.user
+
+    const blogId = parseInt(req.params.id)
+
+    await prisma.blog.delete({
+        where: { id: blogId, authorId: user.id }
+    })
+
+    res.json({ message: 'Blog Deleted Successfully!' })
+}
+
 module.exports = {
     index,
     create,
-    edit
+    edit,
+    destroy
 }
