@@ -7,5 +7,6 @@ const authorizeRole = require('../middleware/authorizeRole')
 
 router.get('/', commentController.index)
 router.post('/', verifyToken, authorizeRole('USER'), commentController.create)
+router.put('/:id', verifyToken, authorizeRole('USER'), commentController.edit)
 
 module.exports = router
