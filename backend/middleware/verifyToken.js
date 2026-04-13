@@ -11,7 +11,6 @@ const verifyToken = (req, res, next) => {
             if(err) {
                 return res.sendStatus(403)
             }
-            req.token = bearerToken
             req.authData = authData
             next()
         })
