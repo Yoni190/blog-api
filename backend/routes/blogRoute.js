@@ -8,5 +8,6 @@ const router = Router()
 router.get('/', blogController.index)
 router.post('/', verifyToken, authorizeRole('AUTHOR'), blogController.create)
 router.put('/:id', verifyToken, authorizeRole('AUTHOR'), blogController.edit)
+router.delete('/:id', verifyToken, authorizeRole('AUTHOR'), blogController.destroy)
 
 module.exports = router
