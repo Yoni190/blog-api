@@ -13,13 +13,14 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  email     String   @unique
+  id        Int       @id @default(autoincrement())
+  username  String    @unique
+  email     String    @unique
   password  String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
+  role      Role      @default(USER)
+  createdAt DateTime  @default(now())
   blogs     Blog[]
+  comments  Comment[]
 }
 
 model Blog {
@@ -40,6 +41,8 @@ model Comment {
   createdAt DateTime @default(now())
   blog      Blog     @relation(fields: [blogId], references: [id])
   blogId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
 }
 
 enum Role {
