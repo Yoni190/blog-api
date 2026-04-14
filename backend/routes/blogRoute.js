@@ -6,6 +6,7 @@ const authorizeRole = require('../middleware/authorizeRole')
 const router = Router()
 
 router.get('/', blogController.index)
+router.get('/:id', blogController.getBlog)
 router.post('/', verifyToken, authorizeRole('AUTHOR'), blogController.create)
 router.put('/:id', verifyToken, authorizeRole('AUTHOR'), blogController.edit)
 router.delete('/:id', verifyToken, authorizeRole('AUTHOR'), blogController.destroy)
