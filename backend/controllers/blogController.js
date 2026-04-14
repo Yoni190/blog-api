@@ -65,10 +65,21 @@ const updatePublishStatus = async (req, res) => {
     res.json({ message: "Blog Publish Status Updated Successfully!" })
 }
 
+const getBlog = async (req, res) => {
+    const blogId = parseInt(req.params.id)
+    const blog = await prisma.blog.findUnique({
+        where: { id: blogId },
+        include: { author: true }
+    })
+
+    res.json({ blog })
+}
+
 module.exports = {
     index,
     create,
     edit,
     destroy,
-    updatePublishStatus
+    updatePublishStatus,
+    getBlog
 }
