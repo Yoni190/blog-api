@@ -2,7 +2,9 @@ const { prisma } = require('../lib/prisma')
 
 const index = async (req, res) => {
 
-    const blogs = await prisma.blog.findMany()
+    const blogs = await prisma.blog.findMany({
+        include: { author: true }
+    })
 
     res.json({ blogs })
 }
