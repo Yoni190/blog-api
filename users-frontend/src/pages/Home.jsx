@@ -22,7 +22,10 @@ const Home = () => {
         
         <ul>
             {blogs.map((blog) => (
-                <li key={blog.id}>{blog.title}</li>
+                <li key={blog.id}>
+                  <h2>{blog.title}</h2>
+                  <p>{blog.author.username} {blog.createdAt}</p>
+                </li>
             ))}
         </ul>
     </div>
