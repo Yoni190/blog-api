@@ -71,7 +71,13 @@ const getBlog = async (req, res) => {
     const blogId = parseInt(req.params.id)
     const blog = await prisma.blog.findUnique({
         where: { id: blogId },
-        include: { author: true }
+        include: { 
+            author: {
+                select: {
+                    username: true,
+                }
+            }
+         }
     })
 
     res.json({ blog })
