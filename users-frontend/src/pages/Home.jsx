@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router'
 
 const Home = () => {
     const [blogs, setBlogs] = useState([])
@@ -23,7 +24,7 @@ const Home = () => {
         <ul>
             {blogs.map((blog) => (
                 <li key={blog.id}>
-                  <h2>{blog.title}</h2>
+                  <Link to={`/${blog.id}`}><h2>{blog.title}</h2></Link>
                   <p>{blog.author.username} {blog.createdAt}</p>
                 </li>
             ))}
