@@ -20,6 +20,7 @@ const Home = () => {
         <header>
             <h1>Blogs</h1>
             <Link to={'/login'}>Login</Link>
+            <Link to={'/register'}>Register</Link>
         </header>
         
         <ul>
