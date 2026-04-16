@@ -16,7 +16,8 @@ const Register = () => {
                 body: JSON.stringify({ username: formData.username, email: formData.email, password: formData.password })
             })
             const data = await res.json()
-
+            
+            localStorage.setItem('jwt_token', data.token)
             console.log(data)
         } catch (error) {
             console.error(error)
