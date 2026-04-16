@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router'
 
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -21,6 +23,7 @@ const Login = () => {
             const data = await res.json()
             localStorage.setItem('jwt_token', data.token)
             console.log(data)
+            navigate('/')
 
         } catch (error) {
             console.error(error)
