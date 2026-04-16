@@ -19,6 +19,7 @@ const Home = () => {
     <div>
         <header>
             <h1>Blogs</h1>
+            <Link to={'/login'}>Login</Link>
         </header>
         
         <ul>
