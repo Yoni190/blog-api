@@ -13,8 +13,13 @@ const Login = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
             })
+
+            if(!res.ok) {
+                return
+            }
             
             const data = await res.json()
+            localStorage.setItem('jwt_token', data.token)
             console.log(data)
 
         } catch (error) {
