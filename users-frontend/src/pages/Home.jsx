@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 
 const Home = () => {
     const [blogs, setBlogs] = useState([])
+    const [loggedIn, setLoggedIn] = useState(false)
 
     useEffect(() => {
       fetch('http://localhost:3000/blogs')
@@ -10,7 +11,7 @@ const Home = () => {
         .then((res) => setBlogs(res.blogs))
         .catch((err) => console.error(err))
 
-        console.log(blogs)
+        setLoggedIn(!!localStorage.getItem('jwt_token'))
     }, [])
 
     
@@ -19,8 +20,13 @@ const Home = () => {
     <div>
         <header>
             <h1>Blogs</h1>
-            <Link to={'/login'}>Login</Link>
-            <Link to={'/register'}>Register</Link>
+            {!loggedIn && (
+              <>
+                <Link to={'/login'}>Login</Link>
+                <Link to={'/register'}>Register</Link>
+              </>
+            )}
+            
         </header>
         
         <ul>
