@@ -84,9 +84,9 @@ const getBlog = async (req, res) => {
 }
 
 const getBlogs = async (req, res) => {
-    const authorId = parseInt(req.params.authorId)
+    const author = req.authData.user
     const blogs = await prisma.blog.findMany({
-        where: { authorId }
+        where: { authorId: author.id }
     })
 
     res.json({ blogs })
