@@ -25,10 +25,12 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     const { username, password } = req.body
+    const isAuthor = req.body.isAuthor
 
     const user = await prisma.user.findUnique({
         where: {
-            username
+            username,
+            role: isAuthor ? 'AUTHOR' : 'USER'
         }
     })
 
