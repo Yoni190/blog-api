@@ -58,6 +58,14 @@ const Home = () => {
   return (
     <div>
         <h1>Home</h1>
+
+        {blogs.map((blog) => (
+            <div key={blog.id}>
+                <h3>{blog.text}</h3>
+                <p>{blog.isPublished ? 'Published' : 'Not Published'}</p>
+                <p>{blog.createdAt}</p>
+            </div>
+        ))}
     </div>
   )
 }
