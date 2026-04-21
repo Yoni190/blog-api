@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router'
 const Home = () => {
     const token = localStorage.getItem('jwt_token')
     const navigate = useNavigate()
+    const [blogs, setBlogs] = useState([])
 
     useEffect(() => {
         if(!token) {
@@ -20,8 +21,6 @@ const Home = () => {
                     }
                 })
 
-                console.log(res)
-
                 if(!res.ok) {
                     navigate('/')
                 }
@@ -33,9 +32,33 @@ const Home = () => {
         authenticate()
       
     }, [token])
+
+    useEffect(() => {
+        if(!token) return
+
+        const getBlogs = async () => {
+            try {
+                const res = await fetch('http://localhost:3000/blogs/author', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+
+                const data = await res.json()
+                setBlogs(data.blogs)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        getBlogs()
+    }, [token])
+    
     
   return (
-    <div>Home</div>
+    <div>
+        <h1>Home</h1>
+    </div>
   )
 }
 
