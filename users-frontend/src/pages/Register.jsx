@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router'
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -6,6 +7,8 @@ const Register = () => {
         email: '',
         password: ''
     })
+
+    const navigate = useNavigate()
 
     const handleRegister = async (e) => {
         e.preventDefault()
@@ -23,7 +26,7 @@ const Register = () => {
             const data = await res.json()
             
             localStorage.setItem('jwt_token', data.token)
-            console.log(data)
+            navigate('/')
         } catch (error) {
             console.error(error)
         }
