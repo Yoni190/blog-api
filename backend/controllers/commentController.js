@@ -4,7 +4,12 @@ const index = async (req, res) => {
     const blogId = parseInt(req.query.blogId)
 
     const comments = await prisma.comment.findMany({
-        where: { blogId }
+        where: { blogId },
+        include: { user: {
+            select: {
+                username: true
+            }
+        } }
     })
 
     res.json({ comments })
