@@ -12,8 +12,8 @@ const index = async (req, res) => {
 
 const create = async (req, res) => {
     const user = req.authData.user
-    const blogId = parseInt(req.query.blogId)
-    const { text } = req.body
+    // const blogId = parseInt(req.query.blogId)
+    const { text, blogId } = req.body
 
     await prisma.comment.create({
         data: {
