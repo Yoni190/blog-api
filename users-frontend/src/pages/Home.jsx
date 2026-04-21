@@ -35,18 +35,25 @@ const Home = () => {
       
     }, [token])
     
-
+    const removeToken = () => {
+      localStorage.removeItem('jwt_token')
+      setLoggedIn(false)
+    }
     
     
   return (
     <div>
         <header>
             <h1>Blogs</h1>
-            {!loggedIn && (
+            {!loggedIn ? (
               <>
                 <Link to={'/login'}>Login</Link>
                 <Link to={'/register'}>Register</Link>
               </>
+            ) : (
+                <>
+                  <button onClick={removeToken}>Log Out</button>
+                </>
             )}
             
         </header>
