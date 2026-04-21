@@ -97,6 +97,8 @@ const BlogDetails = () => {
         </div>
       )}
 
+
+      <h2>Comments</h2>
       {comments.map((comment) => (
         <div key={comment.id}>
           <p>{comment.text}</p>
