@@ -47,7 +47,12 @@ const login = async (req, res) => {
     })
 }
 
+const me = (req, res) => {
+    return res.json({ message: 'Authenticated' })
+}
+
 module.exports = {
     register,
-    login
+    login,
+    me
 }
