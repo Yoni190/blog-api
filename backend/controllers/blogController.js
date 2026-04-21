@@ -83,11 +83,21 @@ const getBlog = async (req, res) => {
     res.json({ blog })
 }
 
+const getBlogs = async (req, res) => {
+    const authorId = parseInt(req.params.authorId)
+    const blogs = await prisma.blog.findMany({
+        where: { authorId }
+    })
+
+    res.json({ blogs })
+}
+
 module.exports = {
     index,
     create,
     edit,
     destroy,
     updatePublishStatus,
-    getBlog
+    getBlog,
+    getBlogs
 }
