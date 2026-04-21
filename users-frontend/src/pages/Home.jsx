@@ -5,14 +5,36 @@ const Home = () => {
     const [blogs, setBlogs] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
 
+    const token = localStorage.getItem('jwt_token')
+
     useEffect(() => {
       fetch('http://localhost:3000/blogs')
         .then((res) => res.json())
         .then((res) => setBlogs(res.blogs))
         .catch((err) => console.error(err))
 
-        setLoggedIn(!!localStorage.getItem('jwt_token'))
     }, [])
+
+    useEffect(() => {
+
+      const authenticateUser = async () => {
+        try {
+          const res = await fetch('http://localhost:3000/me', {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          })
+
+          setLoggedIn(res.ok)
+        } catch (error) {
+          console.error(error)
+        }
+      }
+
+      authenticateUser()
+      
+    }, [token])
+    
 
     
     
