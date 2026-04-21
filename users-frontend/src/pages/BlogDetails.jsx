@@ -19,6 +19,14 @@ const BlogDetails = () => {
       <h1>{blog.title}</h1>
       <h2>{blog.author?.username}</h2>
       <p>{blog.text}</p>
+
+      <div>
+        <form action="">
+          <h2>Add a Comment</h2>
+          <textarea name="comment" id="comment"></textarea>
+          <button type='submit'>Post Comment</button>
+        </form>
+      </div>
     </div>
   )
 }
