@@ -16,6 +16,7 @@ const Home = () => {
     }, [])
 
     useEffect(() => {
+      if(!token) return
 
       const authenticateUser = async () => {
         try {

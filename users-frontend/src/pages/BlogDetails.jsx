@@ -17,20 +17,21 @@ const BlogDetails = () => {
   }, [])
 
   useEffect(() => {
+      if(!token) return
   
-        const authenticateUser = async () => {
-          try {
-            const res = await fetch('http://localhost:3000/me', {
-              headers: {
-                'Authorization': `Bearer ${token}`
-              }
-            })
-  
-            setLoggedIn(res.ok)
-          } catch (error) {
-            console.error(error)
-          }
+      const authenticateUser = async () => {
+        try {
+          const res = await fetch('http://localhost:3000/me', {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          })
+
+          setLoggedIn(res.ok)
+        } catch (error) {
+          console.error(error)
         }
+      }
   
         authenticateUser()
         
