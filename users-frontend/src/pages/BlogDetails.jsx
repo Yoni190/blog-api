@@ -7,6 +7,7 @@ const BlogDetails = () => {
   const token = localStorage.getItem('jwt_token')
   const [loggedIn, setLoggedIn] = useState(false)
   const [comment, setComment] = useState('')
+  const [comments, setComments] = useState([])
 
   useEffect(() => {
     fetch(`http://localhost:3000/blogs/${id}`)
@@ -34,6 +35,27 @@ const BlogDetails = () => {
         authenticateUser()
         
       }, [token])
+
+
+      useEffect(() => {
+        if (!blog.id) return
+
+        const getComments = async () => {
+          try {
+            const res = await fetch(`http://localhost:3000/comments?blogId=${blog.id}`)
+            const commentsObject = await res.json()
+
+            setComments(commentsObject.comments)
+            console.log(commentsObject)
+            
+          } catch (error) {
+            console.error(error)
+          }
+        }
+
+        getComments()
+      }, [blog.id])
+      
 
       const submitComment = async (e) => {
         e.preventDefault()
@@ -74,6 +96,12 @@ const BlogDetails = () => {
           </form>
         </div>
       )}
+
+      {comments.map((comment) => (
+        <div key={comment.id}>
+          <p>{comment.text}</p>
+        </div>
+      ))}
       
     </div>
   )
