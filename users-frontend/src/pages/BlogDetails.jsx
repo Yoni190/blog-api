@@ -100,6 +100,8 @@ const BlogDetails = () => {
       {comments.map((comment) => (
         <div key={comment.id}>
           <p>{comment.text}</p>
+          <p>{comment.createdAt}</p>
+          <h3>{comment.user.username}</h3>
         </div>
       ))}
       
