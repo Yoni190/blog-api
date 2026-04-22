@@ -7,6 +7,7 @@ const EditBlog = ({ id }) => {
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
     const param = useParams()
+    const [publishedStatus, setPublishedStatus] = useState(false)
 
     const navigate = useNavigate()
 
@@ -44,6 +45,7 @@ const EditBlog = ({ id }) => {
                 const data = await res.json()
                 setTitle(data.blog.title)
                 setText(data.blog.text)
+                setPublishedStatus(data.blog.isPublished)
             } catch (error) {
                 console.error(error)
             }
@@ -65,7 +67,8 @@ const EditBlog = ({ id }) => {
                     },
                     body: JSON.stringify({
                         title,
-                        text
+                        text,
+                        isPublished: publishedStatus
                     })
                 })
 
@@ -81,6 +84,7 @@ const EditBlog = ({ id }) => {
             <h1>Edit Blog</h1>
             <input type="text" name="title" id="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
             <textarea name="text" id="text" value={text} onChange={(e) => setText(e.target.value)}></textarea>
+            <input type="checkbox" name="publishedStatus" id="publishedStatus" checked={publishedStatus} onChange={(e) => setPublishedStatus(e.target.checked)}/> {publishedStatus ? 'Unpublish' : 'Publish'}
             <button type='submit'>Edit Blog</button>
         </form>
     </div>
