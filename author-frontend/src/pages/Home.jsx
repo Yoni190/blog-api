@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
+
 
 
 const Home = () => {
@@ -58,6 +59,7 @@ const Home = () => {
   return (
     <div>
         <h1>Home</h1>
+        <Link to={'/create-blog'}>Create a Blog</Link>
 
         {blogs.map((blog) => (
             <div key={blog.id}>
