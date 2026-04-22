@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useParams, useNavigate } from 'react-router'
 
 const BlogDetails = () => {
   const { id } = useParams()
@@ -8,6 +8,7 @@ const BlogDetails = () => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch(`http://localhost:3000/blogs/${id}`)
@@ -76,7 +77,7 @@ const BlogDetails = () => {
             })
           })
 
-          console.log(res)
+          navigate('/')
         } catch (error) {
           console.error(error)
         }
