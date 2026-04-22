@@ -1,10 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
+    const token = localStorage.getItem('jwt_token')
+
+    useEffect(() => {
+            if(!token) {
+                navigate('/')
+                return
+            }
+    
+            const authenticate = async () => {
+                try {
+                    const res = await fetch('http://localhost:3000/me', {
+                        headers: {
+                            'authorization': `Bearer ${token}`
+                        }
+                    })
+    
+                    if(res.ok) {
+                        navigate('/home')
+                    }
+                } catch (error) {
+                    console.error(error)
+                }
+            }
+    
+            authenticate()
+          
+        }, [token])
 
     const handleLogin = async (e) => {
         e.preventDefault()
