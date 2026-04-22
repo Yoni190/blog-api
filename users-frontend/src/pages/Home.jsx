@@ -15,6 +15,8 @@ const Home = () => {
 
     }, [])
 
+    console.log(blogs)
+
     useEffect(() => {
       if(!token) return
 
@@ -60,12 +62,14 @@ const Home = () => {
         </header>
         
         <ul>
-            {blogs.map((blog) => (
+            {blogs.map((blog) => {
+              return blog.isPublished && (
                 <li key={blog.id}>
-                  <Link to={`/${blog.id}`}><h2>{blog.title}</h2></Link>
-                  <p>{blog.author.username} {blog.createdAt}</p>
-                </li>
-            ))}
+                    <Link to={`/${blog.id}`}><h2>{blog.title}</h2></Link>
+                    <p>{blog.author.username} {blog.createdAt}</p>
+                  </li>
+              )
+              })}
         </ul>
     </div>
   )
