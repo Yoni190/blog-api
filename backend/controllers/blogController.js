@@ -45,6 +45,10 @@ const destroy = async (req, res) => {
 
     const blogId = parseInt(req.params.id)
 
+    await prisma.comment.deleteMany({
+        where: { blogId }
+    })
+
     await prisma.blog.delete({
         where: { id: blogId, authorId: user.id }
     })
