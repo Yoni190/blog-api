@@ -11,10 +11,25 @@ const BlogDetails = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    fetch(`http://localhost:3000/blogs/${id}`)
-      .then((res) => res.json())
-      .then((res) => setBlog(res.blog))
-      .catch((err) => console.error(err))
+    const getBlog = async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/blogs/${id}`)
+        const data = await res.json()
+        
+        if(!data.blog.isPublished) {
+          navigate('/')
+        }
+        setBlog(data.blog)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    getBlog()
+    // fetch(`http://localhost:3000/blogs/${id}`)
+    //   .then((res) => res.json())
+    //   .then((res) => setBlog(res.blog))
+    //   .catch((err) => console.error(err))
   }, [])
 
   useEffect(() => {
