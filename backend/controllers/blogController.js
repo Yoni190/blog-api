@@ -80,7 +80,8 @@ const getBlog = async (req, res) => {
                 select: {
                     username: true,
                 }
-            }
+            },
+            comments: true
          }
     })
 
