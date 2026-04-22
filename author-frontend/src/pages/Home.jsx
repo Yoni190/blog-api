@@ -54,12 +54,18 @@ const Home = () => {
 
         getBlogs()
     }, [token])
+
+    const removeToken = () => {
+        localStorage.removeItem('jwt_token')
+        navigate('/')
+    }
     
     
   return (
     <div>
         <h1>Home</h1>
         <Link to={'/create-blog'}>Create a Blog</Link>
+        <button onClick={removeToken}>Log Out</button>
 
         {blogs.map((blog) => (
             <div key={blog.id}>
