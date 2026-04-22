@@ -45,11 +45,10 @@ const edit = async (req, res) => {
 }
 
 const destroy = async (req, res) => {
-    const user = req.authData.user
     const commentId = parseInt(req.params.id)
     
     await prisma.comment.delete({
-        where: { id: commentId, userId: user.id }
+        where: { id: commentId }
     })
 
     res.json({ message: 'Comment Deleted Successfully!' })
