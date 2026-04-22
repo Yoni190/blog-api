@@ -86,7 +86,8 @@ const getBlog = async (req, res) => {
 const getBlogs = async (req, res) => {
     const author = req.authData.user
     const blogs = await prisma.blog.findMany({
-        where: { authorId: author.id }
+        where: { authorId: author.id },
+        orderBy: { createdAt: 'desc'}
     })
 
     res.json({ blogs })
