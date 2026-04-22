@@ -34,10 +34,7 @@ const Home = () => {
       
     }, [token])
 
-    useEffect(() => {
-        if(!token) return
-
-        const getBlogs = async () => {
+    const getBlogs = async () => {
             try {
                 const res = await fetch('http://localhost:3000/blogs/author', {
                     headers: {
@@ -52,12 +49,31 @@ const Home = () => {
             }
         }
 
+    useEffect(() => {
+        if(!token) return
+
+        
+
         getBlogs()
     }, [token])
 
     const removeToken = () => {
         localStorage.removeItem('jwt_token')
         navigate('/')
+    }
+
+    const deleteBlog = async (id) => {
+        try {
+            await fetch(`http://localhost:3000/blogs/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            getBlogs()
+        } catch (error) {
+            console.error(error)
+        }
     }
     
     
@@ -72,6 +88,7 @@ const Home = () => {
                 <Link to={`/edit-blog/${blog.id}`}><h3>{blog.title}</h3></Link>
                 <p>{blog.isPublished ? 'Published' : 'Not Published'}</p>
                 <p>{blog.createdAt}</p>
+                <button onClick={() => deleteBlog(blog.id)}>Delete blog</button>
             </div>
         ))}
     </div>
