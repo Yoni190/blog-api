@@ -69,7 +69,7 @@ const Home = () => {
 
         {blogs.map((blog) => (
             <div key={blog.id}>
-                <Link to={`/edit-blog/${blog.id}`}><h3>{blog.text}</h3></Link>
+                <Link to={`/edit-blog/${blog.id}`}><h3>{blog.title}</h3></Link>
                 <p>{blog.isPublished ? 'Published' : 'Not Published'}</p>
                 <p>{blog.createdAt}</p>
             </div>
