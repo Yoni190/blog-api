@@ -8,6 +8,7 @@ const EditBlog = ({ id }) => {
     const [text, setText] = useState('')
     const param = useParams()
     const [publishedStatus, setPublishedStatus] = useState(false)
+    const [comments, setComments] = useState([])
 
     const navigate = useNavigate()
 
@@ -37,19 +38,23 @@ const EditBlog = ({ id }) => {
           
         }, [token])
 
-    useEffect(() => {
-        const getBlog = async () => {
-            try {
-                const res = await fetch(`http://localhost:3000/blogs/${param.id}`)
+    
+    const getBlog = async () => {
+        try {
+            const res = await fetch(`http://localhost:3000/blogs/${param.id}`)
 
-                const data = await res.json()
-                setTitle(data.blog.title)
-                setText(data.blog.text)
-                setPublishedStatus(data.blog.isPublished)
-            } catch (error) {
-                console.error(error)
-            }
+            const data = await res.json()
+            setTitle(data.blog.title)
+            setText(data.blog.text)
+            setPublishedStatus(data.blog.isPublished)
+
+            setComments(data.blog.comments)
+        } catch (error) {
+            console.error(error)
         }
+    }
+
+    useEffect(() => {
 
         getBlog()
     }, [])
@@ -78,6 +83,21 @@ const EditBlog = ({ id }) => {
             }
             
         }
+
+        const deleteComment = async (id) => {
+            try {
+                await fetch(`http://localhost:3000/comments/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+
+                getBlog()
+            } catch (error) {
+                console.error(error)
+            }
+        }
   return (
     <div>
         <form onSubmit={editBlog}>
@@ -87,6 +107,14 @@ const EditBlog = ({ id }) => {
             <input type="checkbox" name="publishedStatus" id="publishedStatus" checked={publishedStatus} onChange={(e) => setPublishedStatus(e.target.checked)}/> {publishedStatus ? 'Unpublish' : 'Publish'}
             <button type='submit'>Edit Blog</button>
         </form>
+
+        <h2>Comments</h2>
+        {comments.map((comment) => (
+            <div key={comment.id}>
+                <p>{comment.text}</p>
+                <button onClick={() => deleteComment(comment.id)}>Delete Comment</button>
+            </div>
+        ))}
     </div>
   )
 }
